@@ -133,7 +133,10 @@ app.get("/showLimit",async (req,res) => {
         // }}
         
         // {$project:{_id:1,total:1,dealers:1,name:"$dealers_info.name",account:"$dealers_info.accountNumber"}}
-   
+   if(tran.length < 1){
+       req.flash("error","No transaction yet");
+       return res.redirect("/");
+   }
     console.log(tran);
     var obj={};
     tran.forEach((t) => {
@@ -180,6 +183,10 @@ app.get("/allTransactions",async (req,res) => {
         }},
         {$sort:{"detail.dt":-1}}
     ]);
+    if(tran.length < 1){
+        req.flash("error","No transaction yet");
+        return res.redirect("/");
+    }
     var total=0;
     var r={};
     tran.forEach((trn) => {
