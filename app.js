@@ -137,7 +137,7 @@ app.get("/showLimit",async (req,res) => {
        req.flash("error","No transaction yet");
        return res.redirect("/");
    }
-    console.log(tran);
+    // console.log(tran);
     var obj={};
     tran.forEach((t) => {
         if(obj[t._id.from] == undefined){
@@ -147,9 +147,9 @@ app.get("/showLimit",async (req,res) => {
         }
         
     })
-    console.log("obj",obj);
+    // console.log("obj",obj);
     // console.log(typeof(tran[0].dates[0]));
-    console.log(tran[1].dt);
+    // console.log(tran[1].dt);
     // console.log(tran[2]._id.dealers);
     // console.log(tran[1].dealers);
     // res.redirect("/");
@@ -172,39 +172,95 @@ app.get("/showLimit",async (req,res) => {
 });
 
 
+// app.get("/allTransactions",async (req,res) => {
+//     var tran= await Transaction.aggregate([
+//         {$group:{_id:{$month:"$date"},"monthly":{$sum:{$toInt:"$totalamount"}},"detail":{$push:{"d":"$dealer","a":"$totalamount","dt":"$date"}}}},
+//         {$lookup:{
+//             from:"dealers",
+//             localField:"detail.d",
+//             foreignField:"_id",
+//             as:"dealers_info"
+//         }},
+//         {$sort:{"detail.dt":-1}}
+//     ]);
+//     if(tran.length < 1){
+//         req.flash("error","No transaction yet");
+//         return res.redirect("/");
+//     }
+//     var total=0;
+//     var r={};
+//     tran.forEach((trn) => {
+//         trn.dealers_info.forEach((dealer) => {
+//             r[dealer._id.toString()]={"name":dealer.name,"bank":dealer.bankName};
+//         });
+
+//         trn.detail.forEach((de) => {
+//                     de["name"]=r[de.d].name;
+//                     de["bank"]=r[de.d].bank;
+//                 // r[de.d].transaction.push({"a":de.a,"d":de.dt});
+//             })
+//         total=total+trn.monthly;
+//     });
+//     // console.log("_-----------",r);
+//     // console.log(tran);
+//     // console.log(tran[0].detail);
+//     // console.log(tran[1].detail);
+//     // console.log(tran[0].dealers_info);
+//     var mnth={
+//         1:"January",
+//         2:"February",
+//         3:"March",
+//         4:"April",
+//         5:"May",
+//         6:"June",
+//         7:"July",
+//         8:"August",
+//         9:"September",
+//         10:"October",
+//         11:"November",
+//         12:"December"
+//     }
+
+//     res.render("allTransaction",{t:tran,total:total,month:mnth});
+// });
+
 app.get("/allTransactions",async (req,res) => {
     var tran= await Transaction.aggregate([
-        {$group:{_id:{$month:"$date"},"monthly":{$sum:{$toInt:"$totalamount"}},"detail":{$push:{"d":"$dealer","a":"$totalamount","dt":"$date"}}}},
         {$lookup:{
             from:"dealers",
-            localField:"detail.d",
+            localField:"dealer",
             foreignField:"_id",
             as:"dealers_info"
         }},
-        {$sort:{"detail.dt":-1}}
+        {$project:{
+            "date":1,
+            "totalamount":1,
+            "d_name":"$dealers_info.name",
+            "d_bank":"$dealers_info.bankName"
+          }},
+        {$group:{
+            _id: {$month:"$date"},
+            "monthly": {
+              $sum: {$toInt:"$totalamount"}
+            },
+            "details":{$push:{"d_name":"$d_name","d_bank":"$d_bank","a":"$totalamount","d":"$date"}}
+          }},
+        {$sort:{"_id":-1}}
     ]);
     if(tran.length < 1){
         req.flash("error","No transaction yet");
         return res.redirect("/");
     }
-    var total=0;
-    var r={};
-    tran.forEach((trn) => {
-        trn.dealers_info.forEach((dealer) => {
-            r[dealer._id.toString()]={"name":dealer.name,"bank":dealer.bankName};
-        });
 
-        trn.detail.forEach((de) => {
-                    de["name"]=r[de.d].name;
-                    de["bank"]=r[de.d].bank;
-                // r[de.d].transaction.push({"a":de.a,"d":de.dt});
-            })
-        total=total+trn.monthly;
+    var total=0;
+    tran.forEach((t) => {
+        total=total+t.monthly
     });
-    console.log("_-----------",r);
+
+    // console.log("_-----------",r);
     console.log(tran);
-    console.log(tran[0].detail);
-    console.log(tran[1].detail);
+    console.log(tran[0].details[0]);
+    // console.log(tran[1].detail);
     // console.log(tran[0].dealers_info);
     var mnth={
         1:"January",
@@ -220,7 +276,8 @@ app.get("/allTransactions",async (req,res) => {
         11:"November",
         12:"December"
     }
-
+    
+    // res.redirect("/");
     res.render("allTransaction",{t:tran,total:total,month:mnth});
 });
 
