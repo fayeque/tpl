@@ -55,9 +55,16 @@ app.get("/addDealer",(req,res) => {
 });
 
 app.post("/addDealer",async (req,res) => {
+    var r=req.body.accountNumber;
+    var n=r.split("");
+    for(var i=4;i<n.length;i=i+5){
+        n.splice(i,0," ");
+    }
+    var final=n.join("");
+    console.log(final);
     var dealerObj={
         name:req.body.name,
-        accountNumber:req.body.accountNumber,
+        accountNumber:final,
         IFSC:req.body.IFSC,
         bankName:req.body.bankName
     }
@@ -108,7 +115,7 @@ app.get("/viewTransactions/:dealer_id",async (req,res) => {
 });
 
 app.get("/viewDetail/:trans_id",(async (req,res) => {
-    await Transaction.findOne({_id:req.params.trans_id}).populate("dealer","name").exec((err,tran) => {
+    await Transaction.findOne({_id:req.params.trans_id}).populate("dealer","name accountNumber").exec((err,tran) => {
         if(err){
             console.log(err);
         }
@@ -144,7 +151,7 @@ app.get("/showLimit",async (req,res) => {
             obj[t._id.from]=t.monthly
         }else{
             obj[t._id.from]=obj[t._id.from]+t.monthly
-        }
+        } 
         
     })
     // console.log("obj",obj);
@@ -284,7 +291,7 @@ app.get("/allTransactions",async (req,res) => {
 app.get("/edit/:dealer_id",async (req,res) => {
     var dealer=await Dealer.findOne({_id:req.params.dealer_id}).lean();
     console.log(dealer);
-    res.render("editDealer",{dealer,dealer});
+    res.render("editDealer",{dealer:dealer});
 });
 
 app.post("/edit/:dealer_id",async (req,res) => {
@@ -296,9 +303,9 @@ app.post("/edit/:dealer_id",async (req,res) => {
 });
 
 app.get("/editDetail/:t_id",async (req,res) => {
-    // var dealer=await Dealer.findOne({_id:req.params.dealer_id},{"name":1});
-    // console.log(dealer);
-    res.render("editTransaction",{t_id:req.params.t_id});
+    var tran=await Transaction.findOne({_id:req.params.t_id}).populate("dealer","name accountNumber").lean();
+    console.log(tran);
+    res.render("editTransaction",{t:tran});
 })
 app.post("/editDetail/:t_id",async (req,res) => {
     var obj=req.body;

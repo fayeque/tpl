@@ -19,61 +19,71 @@
                 <a style="color:white;" class="navbar-brand" href="/">Hannan Tobacco</a>
               </div>
               <div>
-                <button class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button>
+                <button style="margin-left:15px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button>
               </div>
             </div>
             </div>
           </nav>
         <div class="container">
             <div class="innerWrapper">
+                <a href="/editDetail/<%= t._id %>"><span style="margin-left:70%;" class="glyphicon glyphicon-pencil">  </span></a>
+                <a href="/deleteDetail/<%= t._id %>"><span style="margin-left: 20px;" class="glyphicon glyphicon-trash">  </span></a>
                 <div class="header">
-                    <h5 style="margin-left:80px;">Edit Transaction</h5>
+                    <h5 style="margin-left:5px;"> Dealer name: <%= t.dealer.name %></h5>
+                    <h5 style="margin-left:5px;"> A/C number: <%= t.dealer.accountNumber %></h5>
                 </div>
                 <!-- <div class="total">
                     <h3>Total:<span class="totalamount">0</span></h3>
                 </div> -->
                 <div class="input">
-                <form autocomplete="off" method="POST" action="/editDetail/<%= t_id %>">
+                <form autocomplete="off" method="POST" action="/editDetail/<%= t._id %>">
                     <div style="margin-top:15px;" class="singleInput">
-                        Total:<input class="form-control totalamount" type="number" name="totalamount" readonly>
+                        Total:<input class="form-control totalamount" type="number" placeholder="<%= t.totalamount %>" name="totalamount" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n2000" type="number" name="note_2000" placeholder="2000" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">2000</span> 
+                        <input style="margin-top:10px;" class="form-control n2000" type="number" name="note_2000" placeholder="<%= t.note_2000 %>"  onkeyup="myFunction(event)" >
                         <h5 class="note_2000"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_2000" type="hidden" name="q_2000" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_2000" type="hidden" name="q_2000" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n500" type="number" name="note_500" placeholder="500" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">500</span> 
+                        <input style="margin-top:10px;" class="form-control n500" type="text" name="note_500" placeholder="<%= t.note_500 %>" onkeyup="myFunction(event)" >
                         <h5 class="note_500"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_500" type="hidden" name="q_500" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_500" type="hidden" name="q_500" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n200" type="number" name="note_200" placeholder="200" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">200</span> 
+                        <input style="margin-top:10px;" class="form-control n200" type="text" name="note_200" placeholder="<%= t.note_200 %>"  onkeyup="myFunction(event)" >
                         <h5 class="note_200"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_200" type="hidden" name="q_200" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_200" type="hidden"  name="q_200" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n100" type="number" name="note_100" placeholder="100" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">100</span> 
+                        <input style="margin-top:10px;" class="form-control n100" type="text" name="note_100" placeholder="<%= t.note_100 %>"   onkeyup="myFunction(event)" >
                         <h5 class="note_100"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_100" type="hidden" name="q_100" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_100" type="hidden" name="q_100" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n50" type="number" name="note_50" placeholder="50" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">50</span> 
+                        <input style="margin-top:10px;" class="form-control n50" type="text" name="note_50"  placeholder="<%= t.note_50 %>" onkeyup="myFunction(event)" >
                         <h5 class="note_50"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_50" type="hidden" name="q_50" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_50" type="hidden" name="q_50" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n20" type="number" name="note_20" placeholder="20" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">20</span> 
+                        <input style="margin-top:10px;" class="form-control n20" type="text" name="note_20"  placeholder="<%= t.note_20 %>" onkeyup="myFunction(event)" >
                         <h5 class="note_20"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_20" type="hidden" name="q_20" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_20" type="hidden" name="q_20" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control n10" type="number" name="note_10" placeholder="10" onkeyup="myFunction(event)">
+                        <span class="glyphicon glyphicon-usd">10</span> 
+                        <input style="margin-top:10px;" class="form-control n10" type="text" name="note_10"  placeholder="<%= t.note_10 %>" onkeyup="myFunction(event)" >
                         <h5 class="note_10"></h5>
-                        <input style="margin-top: 10px;" class="form-control q_10" type="hidden" name="q_10" readonly>
+                        <input style="margin-top: 10px;" class="form-control q_10" type="hidden" name="q_10" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
-                        <input class="form-control from" type="text" name="from" placeholder="From">
+                        <input class="form-control from" type="text" name="from" placeholder="<%= t.from %>" >
                     </div>
                     <div style="margin-top:15px;" class="singleInput">
                     <input class="btn btn-primary btn-block" type="submit">
@@ -89,6 +99,7 @@
             
             function myFunction(e){
                 var total=0;
+                console.log(total);
                 obj[e.target.name]=parseInt(e.target.value) || 0;
                 var note=parseInt(e.target.name.split("_")[1]);
                 document.getElementsByClassName(e.target.name)[0].textContent=obj[e.target.name]*note;

@@ -1,7 +1,7 @@
 var mongoose=require("mongoose");
 var dealerSchema=new mongoose.Schema({
     name:String,
-    accountNumber:Number,
+    accountNumber:String,
     IFSC:{
         type:String,
         default:'0'
