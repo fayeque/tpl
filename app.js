@@ -37,7 +37,7 @@ app.use(function(req, res, next){
 app.get("/",async (req,res) => {
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        var dealers=await Dealer.find({name:regex}).lean();
+        var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
         var noMatch;
         if(dealers.length < 1){
             noMatch="No dealers found";
@@ -45,7 +45,7 @@ app.get("/",async (req,res) => {
         res.render('landing',{dealers:dealers,noMatch:noMatch});
     }else{
         var noMatch;
-        var dealers = await Dealer.find({});
+        var dealers = await Dealer.find({}).sort({"name":1});
         res.render('landing',{dealers:dealers,noMatch:noMatch});
     }
 });
@@ -239,6 +239,7 @@ app.get("/allTransactions",async (req,res) => {
             foreignField:"_id",
             as:"dealers_info"
         }},
+        {$match:{"dealers_info":{$elemMatch:{"name":{$nin:["Fayeque hannan","Akil hannan","Adil hannan"]}}}}},
         {$project:{
             "date":1,
             "totalamount":1,
@@ -266,7 +267,7 @@ app.get("/allTransactions",async (req,res) => {
 
     // console.log("_-----------",r);
     console.log(tran);
-    console.log(tran[0].details[0]);
+    // console.log(tran[0].dealers_info[0]);
     // console.log(tran[1].detail);
     // console.log(tran[0].dealers_info);
     var mnth={
