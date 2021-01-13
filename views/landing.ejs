@@ -58,7 +58,7 @@ fetch(`http://localhost:5000/`)
                 <div style="display: flex;">
               <div  class="navbar-header">
                 <div style="margin-left:10px;">
-                  <button class="btn btn-success btn-xs navbar-btn"><a href="/allTransactions" style="color:white;"> All transactions</a></button>
+                  <button class="btn btn-success btn-xs navbar-btn"><a onclick="at(event)"  style="color:white;"> All transactions</a></button>
                 </div>
                 
               </div>
@@ -113,6 +113,37 @@ fetch(`http://localhost:5000/`)
         <% }) %>
         <script defer src="http://localhost:5000/rsw.js" ></script>
         <script>
+          function at(event){
+            if('caches' in window){
+      console.log(`http://localhost:5000/allTransactions`);
+  caches.match(`http://localhost:5000/allTransactions`)
+  .then((response) => {
+  if(response){
+  console.log("from here",response);
+  return response.text();
+  }
+  })
+  .then((data) => {
+  // console.log("data",data);
+  if(data){
+    console.log("datatat");
+    document.body.innerHTML = data;
+  }
+  
+  });
+  }
+  
+  fetch(`http://localhost:5000/allTransactions`)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
+  console.log("data",data);
+  document.body.innerHTML = data;
+  });
+
+          }
           function vt(event){
     var id=event.target.dataset.value;
     console.log(event);
