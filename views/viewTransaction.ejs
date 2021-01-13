@@ -50,11 +50,48 @@
                   <h5 class="card-subtitle mb-2 text-muted">A/C Number:- <%= transaction.dealer.accountNumber %></h5>
                     <h4 class="card-subtitle mb-2 text-muted">Rs.<%= transaction.totalamount %></h4>
                     <h5 class="card-subtitle mb-2 text-muted"><span class="glyphicon glyphicon-calendar"></span> <%=  transaction.createdAt %></h5>
-                  <button class="btn btn-primary btn-sm"><a href="/viewDetail/<%= transaction._id %>" style="color:white;">View Details</a></button>
+                  <button class="btn btn-primary btn-sm"><a onclick="vd(event)" data-value="<%= transaction._id %>"  style="color:white;">View Details</a></button>
                 </div>
               </div>
         <% }) %>
 
-
+    <script>
+      function vd(event){
+        var id=event.target.dataset.value;
+    console.log(event);
+    console.log("here")
+    console.log(id);
+    console.log(`https://htobacco.herokuapp.com/viewDetail/${id}`);
+  
+    if('caches' in window){
+      console.log(`https://htobacco.herokuapp.com/viewDetail/${id}`);
+  caches.match(`https://htobacco.herokuapp.com/viewDetail/${id}`)
+  .then((response) => {
+  if(response){
+  console.log("from here",response);
+  return response.text();
+  }
+  })
+  .then((data) => {
+  // console.log("data",data);
+  if(data){
+    console.log("datatat");
+    document.body.innerHTML = data;
+  }
+  
+  });
+  }
+  
+  fetch(`https://htobacco.herokuapp.com/viewDetail/${id}`)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
+  console.log("data",data);
+  document.body.innerHTML = data;
+  });
+      }
+    </script>
     </body>
 </html>

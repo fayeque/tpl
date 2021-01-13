@@ -12,8 +12,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script>
           if('caches' in window){
-        console.log(`http://localhost:5000/`);
-        caches.match("http://localhost:5000/")
+        console.log(`https://htobacco.herokuapp.com/`);
+        caches.match("https://htobacco.herokuapp.com/")
         .then((response) => {
         if(response){
           console.log("from here",response);
@@ -25,7 +25,7 @@
 if(data){
   document.body.innerHTML = data;
 }
-fetch(`http://localhost:5000/`)
+fetch(`https://htobacco.herokuapp.com/`)
   .then((response) => {
   console.log("response from net",response);
   return response.text();
@@ -111,12 +111,12 @@ fetch(`http://localhost:5000/`)
                 </div>
               </div>
         <% }) %>
-        <script defer src="http://localhost:5000/rsw.js" ></script>
+        <script defer src="https://htobacco.herokuapp.com//rsw.js" ></script>
         <script>
           function at(event){
             if('caches' in window){
-      console.log(`http://localhost:5000/allTransactions`);
-  caches.match(`http://localhost:5000/allTransactions`)
+      console.log(`https://htobacco.herokuapp.com/allTransactions`);
+  caches.match(`https://htobacco.herokuapp.com/allTransactions`)
   .then((response) => {
   if(response){
   console.log("from here",response);
@@ -133,7 +133,7 @@ fetch(`http://localhost:5000/`)
   });
   }
   
-  fetch(`http://localhost:5000/allTransactions`)
+  fetch(`https://htobacco.herokuapp.com/allTransactions`)
   .then((response) => {
   console.log("response from net",response);
   return response.text();
@@ -149,11 +149,11 @@ fetch(`http://localhost:5000/`)
     console.log(event);
     console.log("here")
     console.log(id);
-    console.log(`http://localhost:5000/viewTransactions/${id}`);
+    console.log(`https://htobacco.herokuapp.com/viewTransactions/${id}`);
   
     if('caches' in window){
-      console.log(`http://localhost:5000/viewTransactions/${id}`);
-  caches.match(`http://localhost:5000/viewTransactions/${id}`)
+      console.log(`https://htobacco.herokuapp.com/viewTransactions/${id}`);
+  caches.match(`https://htobacco.herokuapp.com/viewTransactions/${id}`)
   .then((response) => {
   if(response){
   console.log("from here",response);
@@ -170,7 +170,7 @@ fetch(`http://localhost:5000/`)
   });
   }
   
-  fetch(`http://localhost:5000/viewTransactions/${id}`)
+  fetch(`https://htobacco.herokuapp.com/viewTransactions/${id}`)
   .then((response) => {
   console.log("response from net",response);
   return response.text();
