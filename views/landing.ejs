@@ -10,13 +10,42 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script>
+          if('caches' in window){
+        console.log(`http://localhost:5000/`);
+        caches.match("http://localhost:5000/")
+        .then((response) => {
+        if(response){
+          console.log("from here",response);
+          return response.text();
+      }
+    })
+    .then((data) => {
+// console.log("data",data);
+if(data){
+  document.body.innerHTML = data;
+}
+fetch(`http://localhost:5000/`)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
+  console.log("data",data);
+  document.body.innerHTML = data;
+  });
+    });
+    }
+      </script>
+
         </head>
     <body>
+
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div style="display: flex;">
               <div  class="navbar-header">
-                <a style="color:white;" class="navbar-brand" href="/">Hannan Tobacco</a>
+                <a style="color:white;" class="navbar-brand" href="/">Akil Tobacco</a>
               </div>
               <div>
                 <button style="margin-left:15px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button>
@@ -78,11 +107,51 @@
                   <h6 class="card-text"><%= dealer.IFSC %></p>
                 <h6 class="card-text"><span class="glyphicon glyphicon-home"></span> <%= dealer.bankName %></p>
                   <button class="btn btn-success btn-sm"><a style="color:white;" href="/addTransaction/<%= dealer._id %>">Add transaction</a></button>
-                  <button class="btn btn-primary btn-sm"><a href="/viewTransactions/<%= dealer._id %>" style="color:white;">View transactions</a></button>
+                  <button class="btn btn-primary btn-sm"><a onclick="vt(event)" data-value="<%= dealer._id %>"  style="color:white;">View transactions</a></button>
                 </div>
               </div>
         <% }) %>
+        <script defer src="http://localhost:5000/rsw.js" ></script>
+        <script>
+          function vt(event){
+    var id=event.target.dataset.value;
+    console.log(event);
+    console.log("here")
+    console.log(id);
+    console.log(`http://localhost:5000/viewTransactions/${id}`);
+  
+    if('caches' in window){
+      console.log(`http://localhost:5000/viewTransactions/${id}`);
+  caches.match(`http://localhost:5000/viewTransactions/${id}`)
+  .then((response) => {
+  if(response){
+  console.log("from here",response);
+  return response.text();
+  }
+  })
+  .then((data) => {
+  // console.log("data",data);
+  if(data){
+    console.log("datatat");
+    document.body.innerHTML = data;
+  }
+  
+  });
+  }
+  
+  fetch(`http://localhost:5000/viewTransactions/${id}`)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
+  console.log("data",data);
+  document.body.innerHTML = data;
+  });
 
+
+}
+        </script>
 
     </body>
 </html>

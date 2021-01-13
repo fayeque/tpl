@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node app.js"
+    "start": "node app.js",
+    "generate-sw":"workbox generate:sw"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "mongoose": "^5.9.21"
+  },
+  "devDependencies": {
+    "workbox-cli": "^6.0.2"
   }
 }

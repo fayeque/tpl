@@ -33,7 +33,6 @@ app.use(function(req, res, next){
     next();
  });
 
-
 app.get("/",async (req,res) => {
     if(req.query.search){
         const regex = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -110,6 +109,7 @@ app.get("/viewTransactions/:dealer_id",async (req,res) => {
             });
             console.log(trans);
             res.render("viewTransaction",{transactions:trans,total:totalAmount});
+
         }
     });
 });
@@ -127,11 +127,13 @@ app.get("/viewDetail/:trans_id",(async (req,res) => {
 }));
 
 app.get("/showLimit",async (req,res) => {
+    console.log("here");
     var tran=await Transaction.aggregate([
         {$match:{"from":{$in:["fayeque","akil","adil"]}}},
         {$group:{_id:{"from":"$from","date":{$month:"$date"}},"monthly":{$sum:{$toInt:"$totalamount"}},"dt":{$push:{"d":"$date","a":"$totalamount"}}}},
         {$sort:{"_id.from":-1,"_id.date":1}}
     ]);
+    console.log("Here2",tran)
         // {$lookup:{
         //     from:"dealers",
         //     localField:"_id.dealers",
@@ -232,6 +234,7 @@ app.get("/showLimit",async (req,res) => {
 // });
 
 app.get("/allTransactions",async (req,res) => {
+    console.log("Data from db");
     var tran= await Transaction.aggregate([
         {$lookup:{
             from:"dealers",
@@ -255,6 +258,7 @@ app.get("/allTransactions",async (req,res) => {
           }},
         {$sort:{"_id":-1}}
     ]);
+    console.log("Data from db",tran);
     if(tran.length < 1){
         req.flash("error","No transaction yet");
         return res.redirect("/");
