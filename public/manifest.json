@@ -1,0 +1,25 @@
+{
+    "short_name": "secure app",
+    "name": "WHATS APP CLONE",
+    "icons": [
+      {
+        "src": "https://www.48hourslogo.com/48hourslogo_data/2018/11/27/79426_1543330132.jpg",
+        "sizes": "64x64 32x32 24x24 16x16",
+        "type": "image/png"
+      },
+      {
+        "src": "https://www.48hourslogo.com/48hourslogo_data/2018/11/27/79426_1543330132.jpg",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "https://www.48hourslogo.com/48hourslogo_data/2018/11/27/79426_1543330132.jpg",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }

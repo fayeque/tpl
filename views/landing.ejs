@@ -3,6 +3,8 @@
         <title>Account details</title>
         <meta charset="utf-8">
         <meta  name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" />
+        <!-- <link rel="manifest" href="http://localhost:5000/manifest.json" /> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -12,7 +14,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script>
           if('caches' in window){
-        console.log(`https://htobacco.herokuapp.com/`);
+        
         caches.match("https://htobacco.herokuapp.com/")
         .then((response) => {
         if(response){
@@ -31,7 +33,7 @@ fetch(`https://htobacco.herokuapp.com/`)
   return response.text();
   })
   .then((data) => {
-  console.log("data",data);
+    console.log(data);
   document.body.innerHTML = data;
   });
     });
@@ -111,7 +113,7 @@ fetch(`https://htobacco.herokuapp.com/`)
                 </div>
               </div>
         <% }) %>
-        <script defer src="https://htobacco.herokuapp.com//rsw.js" ></script>
+        <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script>
         <script>
           function at(event){
             if('caches' in window){
@@ -139,7 +141,7 @@ fetch(`https://htobacco.herokuapp.com/`)
   return response.text();
   })
   .then((data) => {
-  console.log("data",data);
+
   document.body.innerHTML = data;
   });
 
