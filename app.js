@@ -34,21 +34,29 @@ app.use(function(req, res, next){
  });
 
 app.get("/",async (req,res) => {
-    if(req.query.search){
-        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-        var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
-        var noMatch;
-        if(dealers.length < 1){
-            noMatch="No dealers found";
-        }
-        res.render('landing',{dealers:dealers,noMatch:noMatch});
-    }else{
-        var noMatch;
+    // if(req.query.search){
+    //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    //     var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
+    //     var noMatch;
+    //     if(dealers.length < 1){
+    //         noMatch="No dealers found";
+    //     }
+    //     res.render('landing',{dealers:dealers,noMatch:noMatch});
+    // }else{
+        // var noMatch;
         var dealers = await Dealer.find({}).sort({"name":1});
-        res.render('landing',{dealers:dealers,noMatch:noMatch});
-    }
+        res.render('landing',{dealers:dealers});
+    // }
 });
-
+app.get("/search",async (req,res) => {
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
+    var noMatch;
+    if(dealers.length < 1){
+        noMatch="No dealers found";
+    }
+    res.render('search',{dealers:dealers,noMatch:noMatch});
+})
 app.get("/addDealer",(req,res) => {
     res.render("addDealer");
 });
@@ -256,7 +264,7 @@ app.get("/allTransactions",async (req,res) => {
             },
             "details":{$push:{"d_name":"$d_name","d_bank":"$d_bank","a":"$totalamount","d":"$date"}}
           }},
-        {$sort:{"_id":-1}}
+        {$sort:{"_id":1}}
     ]);
     console.log("Data from db",tran);
     if(tran.length < 1){
