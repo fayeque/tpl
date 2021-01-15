@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta  name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" />
-        <!-- <link rel="manifest" href="http://localhost:5000/manifest.json" /> -->
+        <!-- <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" /> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -13,23 +13,13 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script>
-        var url="https://htobacco.herokuapp.com/";
-        fetch(url)
-        .then((response) => {
-          console.log("from network",response);
-          return response.text();
-  })
-  .then((data) => {
-// console.log("data",data);
-if(data){
-  
-  document.body.innerHTML = data;
-}
-    });
+        var url1="https://htobacco.herokuapp.com/all";
+        var url2="https://htobacco.herokuapp.com/"
+
   
           if('caches' in window){
         
-        caches.match(url)
+        caches.match(url2)
         .then((response) => {
         if(response){
           console.log("from here",response);
@@ -44,6 +34,18 @@ if(data){
     });
     }
     
+    fetch(url1)
+        .then((response) => {
+          console.log("from network",response);
+          return response.text();
+  })
+  .then((data) => {
+// console.log("data",data);
+if(data){
+  
+  document.body.innerHTML = data;
+}
+    });
 
       </script>
 
@@ -114,10 +116,10 @@ if(data){
         <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script>
         <script>
           function at(event){
-            var url2="https://htobacco.herokuapp.com/allTransactions"
+            var url3="https://htobacco.herokuapp.com/allTransactions"
             if('caches' in window){
       console.log(url2);
-  caches.match(url2)
+  caches.match(url3)
   .then((response) => {
   if(response){
   console.log("from here",response);
@@ -134,7 +136,7 @@ if(data){
   });
   }
   
-  fetch(url2)
+  fetch(url3)
   .then((response) => {
   console.log("response from net",response);
   return response.text();
@@ -146,7 +148,7 @@ if(data){
 
           }
           function vt(event){
-            var url3="https://htobacco.herokuapp.com/viewTransactions/"
+            var url4="https://htobacco.herokuapp.com/viewTransactions/"
     var id=event.target.dataset.value;
     console.log(event);
     console.log("here")
@@ -154,7 +156,7 @@ if(data){
   
     if('caches' in window){
       console.log(`${url3}${id}`);
-  caches.match(`${url3}${id}`)
+  caches.match(`${url4}${id}`)
   .then((response) => {
   if(response){
   console.log("from here",response);
@@ -171,7 +173,7 @@ if(data){
   });
   }
   
-  fetch(`${url3}${id}`)
+  fetch(`${url4}${id}`)
   .then((response) => {
   console.log("response from net",response);
   return response.text();

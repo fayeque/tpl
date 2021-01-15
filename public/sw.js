@@ -1,8 +1,8 @@
 
 
 
-var S_CACHE="version3";
-var CACHE_DYN="d_version3";
+var S_CACHE="version4";
+var CACHE_DYN="d_version4";
 self.addEventListener("install",(event) => {
     console.log("Installing ...",event);
     event.waitUntil(

@@ -32,8 +32,10 @@ app.use(function(req, res, next){
     res.locals.success = req.flash("success");
     next();
  });
-
 app.get("/",async (req,res) => {
+    res.render('initial');
+})
+app.get("/all",async (req,res) => {
     // if(req.query.search){
     //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     //     var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
