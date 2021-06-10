@@ -13,15 +13,15 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <script>
-        var url1="https://htobacco.herokuapp.com/all";
-
-        var url2="https://htobacco.herokuapp.com/";
+        // var url1="https://htobacco.herokuapp.com/all";
+        var url1="http://localhost:5000/all";
+        var url2="https://localhost:5000/";
           if('caches' in window){
         
         caches.match(url1)
         .then((response) => {
         if(response){
-        //   console.log("from here",response);
+          console.log("from here",response);
           return response.text();
       }
     })
@@ -50,10 +50,12 @@ if(data){
         </head>
     <body>
         <!-- <h1>Loading...</h1> -->
-        <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script>
+        <!-- <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script> -->
+        <script defer src="http://localhost:5000/rsw.js" ></script>
         <script>
           function at(event){
-            var url3="https://htobacco.herokuapp.com/allTransactions"
+            // var url3="https://htobacco.herokuapp.com/allTransactions"
+            var url3="http://localhost:5000/allTransactions"
             if('caches' in window){
     //   console.log(url2);
   caches.match(url3)
@@ -85,7 +87,8 @@ if(data){
 
           }
           function vt(event){
-            var url4="https://htobacco.herokuapp.com/viewTransactions/"
+            // var url4="https://htobacco.herokuapp.com/viewTransactions/"
+            var url4="http://localhost:5000/viewTransactions/"
     var id=event.target.dataset.value;
     console.log(event);
     console.log("here")

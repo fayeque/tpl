@@ -4,8 +4,10 @@ var bodyParser=require("body-parser");
 var mongoose = require("mongoose");
 var Dealer=require("./models/Dealer");
 var Transaction=require("./models/Transaction");
+var cors=require("cors");
 var flash=require("connect-flash");
 const { populate } = require("./models/Dealer");
+var Transaction = require("./models/Transaction");
 
 const PORT = process.env.PORT || 5000;
 
@@ -14,6 +16,7 @@ app.use(require("express-session")({
     resave:false,
     saveUninitialized:false
     }));
+app.use(cors())
 
 mongoose.set('useNewUrlParser',true);
 mongoose.set('useUnifiedTopology',true);
@@ -32,10 +35,25 @@ app.use(function(req, res, next){
     res.locals.success = req.flash("success");
     next();
  });
+// app.get("/",async (req,res) => {
+//     res.render('initial');
+// })
+// app.get("/,async (req,res) => {
+//     // if(req.query.search){
+//     //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+//     //     var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
+//     //     var noMatch;
+//     //     if(dealers.length < 1){
+//     //         noMatch="No dealers found";
+//     //     }
+//     //     res.render('landing',{dealers:dealers,noMatch:noMatch});
+//     // }else{
+//         // var noMatch;
+//         var dealers = await Dealer.find({}).sort({"name":1});
+//         res.render('landing',{dealers:dealers});
+//     // }
+// });
 app.get("/",async (req,res) => {
-    res.render('initial');
-})
-app.get("/all",async (req,res) => {
     // if(req.query.search){
     //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     //     var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
@@ -46,8 +64,10 @@ app.get("/all",async (req,res) => {
     //     res.render('landing',{dealers:dealers,noMatch:noMatch});
     // }else{
         // var noMatch;
+        var t=await Transaction.find({pending:true}).populate("dealer","name accountNumber bankName IFSC").select("dealer totalamount createdAt").exec();
+        console.log(t);
         var dealers = await Dealer.find({}).sort({"name":1});
-        res.render('landing',{dealers:dealers});
+        res.render('landing',{dealers:dealers,t:t});
     // }
 });
 app.get("/search",async (req,res) => {
@@ -83,6 +103,12 @@ app.post("/addDealer",async (req,res) => {
     req.flash('success',"Dealer added successfully");
     res.redirect("/");
 });
+
+//updateStatus
+app.get("/updateStatus/:t_id",async (req,res) => {
+    var tran=await Transaction.updateOne({_id:req.params.t_id},{$set:{pending:false}});
+    res.redirect("/");
+})
 
 app.get("/addTransaction/:dealer_id",async (req,res) => {
     var dealer=await Dealer.findOne({_id:req.params.dealer_id},{"name":1});
@@ -245,6 +271,30 @@ app.get("/showLimit",async (req,res) => {
 
 app.get("/allTransactions",async (req,res) => {
     console.log("Data from db");
+    // var tran= await Transaction.aggregate([
+    //     {$lookup:{
+    //         from:"dealers",
+    //         localField:"dealer",
+    //         foreignField:"_id",
+    //         as:"dealers_info"
+    //     }},
+    //     {$match:{"dealers_info":{$elemMatch:{"name":{$nin:["Fayeque hannan","Akil hannan","Adil hannan"]}}}}},
+    //     {$project:{
+    //         "date":1,
+    //         "totalamount":1,
+    //         "d_name":"$dealers_info.name",
+    //         "d_bank":"$dealers_info.bankName"
+    //       }},
+    //     {$group:{
+    //         _id: {$month:"$date"},
+    //         "monthly": {
+    //           $sum: {$toInt:"$totalamount"}
+    //         },
+    //         "details":{$push:{"d_name":"$d_name","d_bank":"$d_bank","a":"$totalamount","d":"$date"}}
+    //       }},
+    //     {$sort:{"_id":1}}
+    // ]);
+
     var tran= await Transaction.aggregate([
         {$lookup:{
             from:"dealers",
@@ -260,13 +310,13 @@ app.get("/allTransactions",async (req,res) => {
             "d_bank":"$dealers_info.bankName"
           }},
         {$group:{
-            _id: {$month:"$date"},
+            _id: {month:{$month:"$date"},year:{$year:"$date"}},
             "monthly": {
               $sum: {$toInt:"$totalamount"}
             },
             "details":{$push:{"d_name":"$d_name","d_bank":"$d_bank","a":"$totalamount","d":"$date"}}
           }},
-        {$sort:{"_id":1}}
+        {$sort:{"_id.year":-1,"_id.month":-1}}
     ]);
     console.log("Data from db",tran);
     if(tran.length < 1){
@@ -275,8 +325,15 @@ app.get("/allTransactions",async (req,res) => {
     }
 
     var total=0;
+    var season2=0;
+    var season1=0;
     tran.forEach((t) => {
         total=total+t.monthly
+        if(t._id.year == 2021 && t._id.month > 5){
+            season2=season2 + t.monthly;
+        }else{
+            season1=season1+t.monthly;
+        }
     });
 
     // console.log("_-----------",r);
@@ -300,7 +357,7 @@ app.get("/allTransactions",async (req,res) => {
     }
     
     // res.redirect("/");
-    res.render("allTransaction",{t:tran,total:total,month:mnth});
+    res.render("allTransaction",{t:tran,total:total,month:mnth,s1:season1,s2:season2});
 });
 
 app.get("/edit/:dealer_id",async (req,res) => {

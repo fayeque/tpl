@@ -1,8 +1,5 @@
-
-
-
-var S_CACHE="version4";
-var CACHE_DYN="d_version4";
+var S_CACHE="version5";
+var CACHE_DYN="d_version5";
 self.addEventListener("install",(event) => {
     console.log("Installing ...",event);
     event.waitUntil(
@@ -42,6 +39,7 @@ self.addEventListener("fetch",(event) => {
     event.respondWith(
         fetch(event.request)
         .then(function(res){
+            console.log("its working....")
             return caches.open(CACHE_DYN)
             .then((cache) => {
                 cache.put(event.request.url,res.clone());
@@ -52,38 +50,3 @@ self.addEventListener("fetch",(event) => {
         })
     )
 })
-
-// self.addEventListener("fetch",(event) => {
-//     // console.log("fetch event",event);
-//     if (event.request.clone().method === 'GET'){
-//     event.respondWith(caches.match(event.request)
-//     .then((response) => {
-//         if(response){
-//             return response;
-//         }else{
-//             console.log("fetch is fired");
-
-//             return fetch(event.request)
-//             .then((res) => {
-//                 console.log("fetch response",res);
-//                 caches.open(CACHE_DYN)
-//                 .then((cache) => {
-//                     cache.put(event.request.url,res.clone());
-//                     console.log("event request",event.request);
-//                     return res;
-//                 })
-//             })
-//             .catch((err) => {
-//                 console.log(err);
-//             });
-//         }
-//     }))
-// }else{
-//     // attempt to send request normally
-//     event.respondWith(fetch(event.request.clone()).catch(function
-//     (error) {
-//       // only save post requests in browser, if an error occurs
-//       savePostRequests(event.request.clone().url, form_data)
-//     }))
-//   }
-// })
