@@ -64,8 +64,8 @@ app.get("/",async (req,res) => {
     //     res.render('landing',{dealers:dealers,noMatch:noMatch});
     // }else{
         // var noMatch;
-        var t=await Transaction.find({pending:true}).populate("dealer","name accountNumber bankName IFSC").select("dealer totalamount createdAt").exec();
-        console.log(t);
+        var t=await Transaction.find({pending:true}).populate("dealer","name accountNumber bankName IFSC").select("dealer totalamount").exec();
+        // console.log(t);
         var dealers = await Dealer.find({}).sort({"name":1});
         res.render('landing',{dealers:dealers,t:t});
     // }
@@ -124,10 +124,10 @@ app.post("/addTransaction/:dealer_id",async (req,res) => {
     }
     
     obj.dealer=req.params.dealer_id;
-    console.log(obj);
+    // console.log(obj);
     var transaction = await Transaction.create(obj);
     await transaction.save();
-    console.log(transaction);
+    // console.log(transaction);
     req.flash("success","Transaction added successfully");
     res.redirect("/");
 });
@@ -143,7 +143,20 @@ app.get("/viewTransactions/:dealer_id",async (req,res) => {
             trans.forEach((tran) => {
                 totalAmount=totalAmount + parseInt(tran.totalamount);
             });
-            console.log(trans);
+            
+        function convert(x){
+        x=x.toString();
+        var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return res;
+    }
+
+    totalAmount=convert(totalAmount);
+
+            // console.log(trans);
             res.render("viewTransaction",{transactions:trans,total:totalAmount});
 
         }
@@ -156,7 +169,7 @@ app.get("/viewDetail/:trans_id",(async (req,res) => {
             console.log(err);
         }
         else{
-            console.log(tran);
+            // console.log(tran);
             res.render("viewDetail",{t:tran});
         }
     })
@@ -169,7 +182,7 @@ app.get("/showLimit",async (req,res) => {
         {$group:{_id:{"from":"$from","date":{$month:"$date"}},"monthly":{$sum:{$toInt:"$totalamount"}},"dt":{$push:{"d":"$date","a":"$totalamount"}}}},
         {$sort:{"_id.from":-1,"_id.date":1}}
     ]);
-    console.log("Here2",tran)
+    // console.log("Here2",tran)
         // {$lookup:{
         //     from:"dealers",
         //     localField:"_id.dealers",
@@ -318,7 +331,7 @@ app.get("/allTransactions",async (req,res) => {
           }},
         {$sort:{"_id.year":-1,"_id.month":-1}}
     ]);
-    console.log("Data from db",tran);
+    // console.log("Data from db",tran);
     if(tran.length < 1){
         req.flash("error","No transaction yet");
         return res.redirect("/");
@@ -336,8 +349,24 @@ app.get("/allTransactions",async (req,res) => {
         }
     });
 
+    function convert(x){
+        x=x.toString();
+        var lastThree = x.substring(x.length-3);
+    var otherNumbers = x.substring(0,x.length-3);
+    if(otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var res = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return res;
+    }
+
+    total=convert(total);
+    season1=convert(season1);
+    season2=convert(season2);
+
+    console.log(total,season1,season2);
+    
     // console.log("_-----------",r);
-    console.log(tran);
+    // console.log(tran);
     // console.log(tran[0].dealers_info[0]);
     // console.log(tran[1].detail);
     // console.log(tran[0].dealers_info);
@@ -369,14 +398,14 @@ app.get("/edit/:dealer_id",async (req,res) => {
 app.post("/edit/:dealer_id",async (req,res) => {
     var dealer=await Dealer.findByIdAndUpdate({_id:req.params.dealer_id},req.body);
     await dealer.save();
-    console.log(dealer);
+    // console.log(dealer);
     req.flash('success',"Dealer info updated");
     res.redirect("/");
 });
 
 app.get("/editDetail/:t_id",async (req,res) => {
     var tran=await Transaction.findOne({_id:req.params.t_id}).populate("dealer","name accountNumber").lean();
-    console.log(tran);
+    // console.log(tran);
     res.render("editTransaction",{t:tran});
 })
 app.post("/editDetail/:t_id",async (req,res) => {
@@ -385,7 +414,7 @@ app.post("/editDetail/:t_id",async (req,res) => {
         obj.from=req.body.from.toLowerCase();
     }
     var tran= await Transaction.findByIdAndUpdate({_id:req.params.t_id},obj);
-    console.log(tran);
+    // console.log(tran);
     await tran.save();
     req.flash("success","Transaction updated successfully");
     res.redirect("/");

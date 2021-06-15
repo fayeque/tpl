@@ -70,15 +70,16 @@
             <%}%>
            
             <% t.forEach((d) => { %>
-              <div class="card" style="width:30rem;margin-left:50px;box-shadow: 5px 10px 18px #888;padding:10px;background-color: teal;">
+              <div class="card" style="width:30rem;margin-left:50px;box-shadow: 5px 10px 18px #888;padding:10px;background-color:black ;">
                   <div class="card-body">
                    
                     <h4 class="card-title" style="color:white"><span class="glyphicon glyphicon-user">  </span>  <%= d.dealer.name %></h4>
                     <h4 class="card-subtitle mb-2 text-muted" style="color:white"><%= d.dealer.accountNumber %></h4>
-                    <h4  class="card-text"><%= d.dealer.IFSC %></h4>
-                  <h6 class="card-text"><span class="glyphicon glyphicon-home" style="color:white"></span> <%= d.dealer.bankName %></p>
+                    <h4  class="card-text" style="color:white"><%= d.dealer.IFSC %></h4>
+                    <h4  class="card-text" style="color:white">Rs. <%= d.totalamount %></h4>
+                    <h6 class="card-text" style="color:white"><span class="glyphicon glyphicon-home" style="color:white"></span> <%= d.dealer.bankName %></p>
                     <button class="btn btn-success btn-sm"><a style="color:white;" href="/updateStatus/<%= d._id %>">Done</a></button>
-                    <button class="btn btn-primary btn-sm"><a href="/viewTransactions/<%= d.dealer._id %>" data-value="<%= d.dealer._id %>"  style="color:orange;">View transactions</a></button>
+                    <button class="btn btn-primary btn-sm"><a href="/viewDetail/<%= d._id %>" data-value="<%= d.dealer._id %>"  style="color:white;">View transactions</a></button>
                   </div>
                 </div>
           <% }) %>
