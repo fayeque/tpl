@@ -24,7 +24,8 @@
                 <a style="color:white;" class="navbar-brand" href="/">A.Hannan</a>
               </div>
               <div>
-                <button style="margin-left:60px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button>
+                <!-- <button onClick="handleEvent()" style="margin-left:60px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button> -->
+                <button onClick="handleEvent()" style="margin-left:60px;" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-plus"></span> Add dealer</button>
               </div>
             </div>
             </div>
@@ -99,6 +100,11 @@
         <% }) %>
           </div>
         <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script>
+        <script>
+          function handleEvent(){
+            prompt("Enter passcode");
+          }
+        </script>
 
 
     </body>

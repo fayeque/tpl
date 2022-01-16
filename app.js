@@ -53,7 +53,17 @@ app.use(function(req, res, next){
 //         res.render('landing',{dealers:dealers});
 //     // }
 // });
+
+var authPermission = (req,res,next) => {
+    var passcode="713347";
+    
+    console.log(passcode);
+    next();
+}
+
 app.get("/",async (req,res) => {
+
+            
     // if(req.query.search){
     //     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     //     var dealers=await Dealer.find({name:regex}).sort({"name":1}).lean();
@@ -79,7 +89,7 @@ app.get("/search",async (req,res) => {
     }
     res.render('search',{dealers:dealers,noMatch:noMatch});
 })
-app.get("/addDealer",(req,res) => {
+app.get("/addDealer",authPermission,(req,res) => {
     res.render("addDealer");
 });
 
@@ -342,7 +352,7 @@ app.get("/allTransactions",async (req,res) => {
     var season1=0;
     tran.forEach((t) => {
         total=total+t.monthly
-        if(t._id.year == 2021 && t._id.month > 5){
+        if((t._id.year == 2021 && t._id.month > 5) || (t._id.year == 2022 && t._id.month <= 5)){
             season2=season2 + t.monthly;
         }else{
             season1=season1+t.monthly;
