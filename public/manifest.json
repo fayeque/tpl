@@ -1,0 +1,25 @@
+{
+    "short_name": "Hannan",
+    "name": "Hannan tobacco",
+    "icons": [
+      {
+        "src": "https://image.shutterstock.com/image-vector/native-american-pipe-vector-illustration-260nw-709780597.jpg",
+        "sizes": "64x64 32x32 24x24 16x16",
+        "type": "image/png"
+      },
+      {
+        "src": "https://image.shutterstock.com/image-vector/native-american-pipe-vector-illustration-260nw-709780597.jpg",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "https://image.shutterstock.com/image-vector/native-american-pipe-vector-illustration-260nw-709780597.jpg",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": ".",
+    "display": "minimal-ui",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+  }

@@ -3,8 +3,8 @@
         <title>Account details</title>
         <meta charset="utf-8">
         <meta  name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="manifest" href="http://localhost:5000/manifest.json" />
         <!-- <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" /> -->
+        <link rel="manifest" href="http://localhost:5000/manifest.json" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -13,7 +13,6 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-
         </head>
     <body>
 
@@ -21,11 +20,10 @@
             <div class="container-fluid">
                 <div style="display: flex;">
               <div  class="navbar-header">
-                <a style="color:white;" class="navbar-brand" href="/">A.Hannan</a>
+                <a style="color:white;" class="navbar-brand" href="/">Akil Tobacco</a>
               </div>
               <div>
-                <!-- <button onClick="handleEvent()" style="margin-left:60px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button> -->
-                <button onClick="handleEvent()" style="margin-left:60px;" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-plus"></span> Add dealer</button>
+                <button style="margin-left:15px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button>
               </div>
             </div>
             </div>
@@ -35,7 +33,7 @@
                 <div style="display: flex;">
               <div  class="navbar-header">
                 <div style="margin-left:10px;">
-                  <button class="btn btn-success btn-xs navbar-btn"><a href="/allTransactions"  style="color:white;"> All transactions</a></button>
+                  <button class="btn btn-success btn-xs navbar-btn"><a onclick="at(event)"  style="color:white;"> All transactions</a></button>
                 </div>
                 
               </div>
@@ -66,27 +64,17 @@
           </form>
           </div>
           <div class="row text-center">
-            <% if(t.length>0 ){%>
-              <h4>Pending transactions</h4>
-            <%}%>
-           
-            <% t.forEach((d) => { %>
-              <div class="card" style="width:30rem;margin-left:50px;box-shadow: 5px 10px 18px #888;padding:10px;background-color:black ;">
-                  <div class="card-body">
-                   
-                    <h4 class="card-title" style="color:white"><span class="glyphicon glyphicon-user">  </span>  <%= d.dealer.name %></h4>
-                    <h4 class="card-subtitle mb-2 text-muted" style="color:white"><%= d.dealer.accountNumber %></h4>
-                    <h4  class="card-text" style="color:white"><%= d.dealer.IFSC %></h4>
-                    <h4  class="card-text" style="color:white">Rs. <%= d.totalamount %></h4>
-                    <h6 class="card-text" style="color:white"><span class="glyphicon glyphicon-home" style="color:white"></span> <%= d.dealer.bankName %></p>
-                    <button class="btn btn-success btn-sm"><a style="color:white;" href="/updateStatus/<%= d._id %>">Done</a></button>
-                    <button class="btn btn-primary btn-sm"><a href="/viewDetail/<%= d._id %>" data-value="<%= d.dealer._id %>"  style="color:white;">View transactions</a></button>
-                  </div>
-                </div>
-          <% }) %>
-
+            <div col-md-12>
+              <% if(noMatch !== undefined){ %>
+                <h4>
+                  <%= noMatch %>
+                </h4>
+                  <a href="/">Go to home page</a>
+              
+              <% } %>
+            </div>
         <% dealers.forEach((dealer) => { %>
-            <div class="card" style="width:30rem;margin-left:50px;box-shadow: 5px 10px 18px #888888;padding:10px;">
+            <div class="card" style="width:30rem;margin-left:45px;box-shadow: 5px 10px 18px #888888;padding:10px;">
                 <div class="card-body">
                   <a href="/edit/<%= dealer._id %>"><span style="margin-left:70%;" class="glyphicon glyphicon-pencil">  </span></a>
                   <h4 class="card-title"><span class="glyphicon glyphicon-user">  </span>  <%= dealer.name %></h4>
@@ -94,18 +82,83 @@
                   <h6 class="card-text"><%= dealer.IFSC %></p>
                 <h6 class="card-text"><span class="glyphicon glyphicon-home"></span> <%= dealer.bankName %></p>
                   <button class="btn btn-success btn-sm"><a style="color:white;" href="/addTransaction/<%= dealer._id %>">Add transaction</a></button>
-                  <button class="btn btn-primary btn-sm"><a href="/viewTransactions/<%= dealer._id %>" data-value="<%= dealer._id %>"  style="color:white;">View transactions</a></button>
+                  <button class="btn btn-primary btn-sm"><a onclick="vt(event)" data-value="<%= dealer._id %>"  style="color:white;">View transactions</a></button>
                 </div>
               </div>
         <% }) %>
-          </div>
         <script defer src="https://htobacco.herokuapp.com/rsw.js" ></script>
         <script>
-          function handleEvent(){
-            prompt("Enter passcode");
-          }
-        </script>
+          function at(event){
+            var url2="http://localhost:5000/allTransactions"
+            if('caches' in window){
+      console.log(url2);
+  caches.match(url2)
+  .then((response) => {
+  if(response){
+  console.log("from here",response);
+  return response.text();
+  }
+  })
+  .then((data) => {
+  // console.log("data",data);
+  if(data){
+    console.log("datatat");
+    document.body.innerHTML = data;
+  }
+  
+  });
+  }
+  
+  fetch(url2)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
 
+  document.body.innerHTML = data;
+  });
+
+          }
+          function vt(event){
+            var url3="http://localhost:5000/viewTransactions/"
+    var id=event.target.dataset.value;
+    console.log(event);
+    console.log("here")
+    console.log(id);
+  
+    if('caches' in window){
+      console.log(`${url3}${id}`);
+  caches.match(`${url3}${id}`)
+  .then((response) => {
+  if(response){
+  console.log("from here",response);
+  return response.text();
+  }
+  })
+  .then((data) => {
+  // console.log("data",data);
+  if(data){
+    console.log("datatat");
+    document.body.innerHTML = data;
+  }
+  
+  });
+  }
+  
+  fetch(`${url3}${id}`)
+  .then((response) => {
+  console.log("response from net",response);
+  return response.text();
+  })
+  .then((data) => {
+  console.log("data",data);
+  document.body.innerHTML = data;
+  });
+
+
+}
+        </script>
 
     </body>
 </html>

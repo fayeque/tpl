@@ -23,6 +23,10 @@ var transactionSchema=new mongoose.Schema({
         type:String,
         default:null
     },
+    pending:{
+        type:String,
+        default:true
+    },
     date: {
         type: Date,
         default: Date.now
