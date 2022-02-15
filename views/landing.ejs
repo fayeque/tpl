@@ -81,6 +81,7 @@
                     <h5  id="<%= d._id %>" onclick="handleMoMClick(event)" class="glyphicon glyphicon-plus mb-2" >Manofthematches:<%=d.Man_of_the_match %></h5>
                     <h5  class="card-text <%= d._id %>" >Matches Played: <%= d.matches %></h5>
                     <button class="btn btn-primary btn-sm"><a href="/viewDetail/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">View transactions</a></button>
+                    <button class="btn btn-primary btn-sm"><a href="/handlePay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Paid</a></button>
                   </div>
                 </div>
           <% }) %>

@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>Account details</title>
+        <meta charset="utf-8">
+        <meta  name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="manifest" href="http://localhost:5000/manifest.json" />
+        <!-- <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" /> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <style>
+            *{
+                line-height: 0.5rem;
+            }
+          .avatar {
+            margin-top:20px;
+            margin-left:50px;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+          }
+        </style>
+        </head>
+    <body>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div style="display: flex;">
+              <div  class="navbar-header">
+                <a style="color:white;" class="navbar-brand" href="/">Tarbanglow Chilly Paratha Cup</a>
+              </div>
+            </div>
+            </div>
+          </nav>
+          <div class="container">
+            <% if(error && error.length>0){ %>
+            <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+            <% } %>
+            <% if(success && success.length>0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+            <% } %>
+        </div>
+
+          <div class="row">
+              <div class="card" style="margin:auto;width:30rem;box-shadow: 5px 10px 18px #888;padding:10px;margin-top:10px;">
+                  <div style="width:100%;" class="avt">
+                    <img src="<%= p.avatar %>" alt="Avatar" class="avatar">
+                  </div>
+                  <div class="details">
+                    <h3><span> <%= p.name %> </span></h3>
+                    <h5>Man of the matches : <%= p.Man_of_the_match %></h5>
+                    <h5 style="margin-top:10px;">Total Matches Played : <%= p.history.won + p.history.lost %></h5>
+                    <h5>Total matches won : <%= p.won %></h5>
+                    <h5>Total matches lost : <%= p.lost %></h5>
+                    <h4 style="margin-top:20px;">Batting stats</h4>
+                    <h5>Innings : <%=p.innings %>  ||| Run scored : <%=p.runs %></h5>
+                    <h5>Balls Played : <%=p.ballsPlayed %> ||| Strike rate : <%=p.strikeRate %></h5>
+                    <h4 style="margin-top:20px;">Bowling stats</h4>
+                    <h5>Ball innings : <%=p.ballInnings %> ||| Balls delivered : <%=p.ballsDelivered %></h5>
+                    <h5>Overs : <%=p.overs %> ||| Runs given : <%=p.runsGiven %> </h5>
+                    <h5>Economy : <%=p.economy %> ||| Wickets : <%= p.wickets %></h5>
+                  </div>
+                </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+          </div>
+ 
+
+
+    </body>
+</html>

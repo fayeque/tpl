@@ -41,7 +41,7 @@ app.use(function(req, res, next){
 
 
 app.get("/verysecureone",async (req,res) => {
-        var players=await Player.find({});
+        var players=await Player.find({}).sort({name:1});
         res.render('landing',{players:players});
 });
 
@@ -76,6 +76,8 @@ app.get("/handleWin/:pid",async (req,res) => {
     const p=await Player.findOne({_id:req.params.pid});
     p.won+=1;
     p.matches+=1;
+    p.history.won += 1;
+    p.history.matches += 1;
     console.log(p);
     await p.save()
     res.json(p);
@@ -87,6 +89,8 @@ app.get("/handleLost/:pid",async (req,res) => {
     const p=await Player.findOne({_id:req.params.pid});
     p.lost+=1;
     p.matches+=1;
+    p.history.lost += 1;
+    p.history.matches += 1;
     console.log(p);
     await p.save()
     res.json(p);
@@ -104,38 +108,155 @@ app.get("/handleMoM/:pid",async (req,res) => {
 
 
 app.get("/viewStats/:id",async (req,res) => {
-    res.render("comingsoon");
+    var p=await Player.findOne({_id:req.params.id});
+    console.log(p);
+    res.render("stats",{p:p});
 })
 
-// app.get("/bulkinsert",async (req,res) =>{
-//     const players=await Player.insertMany([
-//         {name:'Saif Ali'},
-//         {name:'Fayeque'},
-//         {name:'Buni'},
-//         {name:'Aquib'},
-//         {name:'Chotu'},
-//         {name:'Sheru Bhai'},
-//         {name:'Sohrab Bhai'},
-//         {name:'Azad Bhai'},
-//         {name:'Atif'},
-//         {name:'Irfan'},
-//         {name:'Danish(Makkhi)'},
-//         {name:'Saddam Bhai'},
-//         {name:'Danish'},
-//         {name:'Sabbir Bhai'},
-//         {name:'Paale'},
-//         {name:'Faiz'},
-//         {name:'Raj Bhai'},
-//         {name:'Tutu Bhai'},
-//         {name:'Tipu Bhai'},
-//         {name:'Wajid Bhai'},
-//         {name:'Bikki'},
-//         {name:'Akil Bhai'}
-//     ]);
+app.get("/handlePay/:id",async (req,res) => {
+    var player=await Player.findOne({_id:req.params.id});
+    player.won=0;
+    player.lost=0;
+    player.matches=0;
+    await player.save();
+    console.log(player);
+    res.redirect("/verysecureone");
+})
 
-//     await players.save();
-//     res.send("Successfully");
-// })
+
+app.get("/temp",async (req,res) => {
+    var players=await Player.find({}).select({name:1,_id:1});
+    console.log(players);
+    res.send("Success");
+})
+
+app.get("/bulkinsert",async (req,res) =>{
+    const players=await Player.insertMany([
+        {name:'Saif Ali'},
+        {name:'Fayeque'},
+        {name:'Buni'},
+        {name:'Aquib'},
+        {name:'Chotu'},
+        {name:'Sheru Bhai'},
+        {name:'Sohrab Bhai'},
+        {name:'Azad Bhai'},
+        {name:'Atif'},
+        {name:'Irfan'},
+        {name:'Danish(Makkhi)'},
+        {name:'Saddam Bhai'},
+        {name:'Danish'},
+        {name:'Sabbir Bhai'},
+        {name:'Paale'},
+        {name:'Faiz'},
+        {name:'Raj Bhai'},
+        {name:'Tutu Bhai'},
+        {name:'Tipu Bhai'},
+        {name:'Wajid Bhai'},
+        {name:'Bikki'},
+        {name:'Akil Bhai'}
+    ]);
+
+    // await players.save();
+    res.send("Successfully");
+})
+
+app.get("/te",async (req,res) => {
+    var p=await Player.find({}).select({name:1,_id:1}).sort({name:1});
+    // console.log(p);
+    const m=p.map((r) => {
+        return {_id:r._id.toString(),name:r.name}
+    });
+    console.log(m);
+    res.send("seee");
+})
+
+
+app.get("/updateBattingStats",async (req,res) => {
+    var data=[
+        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai', runs: 26,ballsPlayed:9 },
+        { _id: '620be3bea9261146e0f043a6', name: 'Aquib',runs: 1,ballsPlayed:2 },
+        { _id: '620be3bea9261146e0f043ab', name: 'Atif',runs:22,ballsPlayed:12 },
+        { _id: '620be3bea9261146e0f043aa', name: 'Azad Bhai',runs: 0,ballsPlayed:1 },
+        { _id: '620be3bea9261146e0f043b7', name: 'Bikki', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a5', name: 'Buni', runs: 14,ballsPlayed:12 },
+        { _id: '620be3bea9261146e0f043a7', name: 'Chotu',runs: 2,ballsPlayed:3 },
+        { _id: '620be3bea9261146e0f043af', name: 'Danish', runs: 31,ballsPlayed:17 },
+        { _id: '620be3bea9261146e0f043ad', name: 'Danish(Makkhi)', runs: 4,ballsPlayed:1 },
+        { _id: '620be3bea9261146e0f043b2', name: 'Faiz', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043ac', name: 'Irfan', runs: 4,ballsPlayed:8 },
+        { _id: '620be3bea9261146e0f043b1', name: 'Paale', runs: 20,ballsPlayed:22 },
+        { _id: '620be3bea9261146e0f043b3', name: 'Raj Bhai', runs: 8,ballsPlayed:3 },
+        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai', runs: 10,ballsPlayed:8 },
+        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runs: 8,ballsPlayed:6 },
+        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runs: 1,ballsPlayed:5 },
+        { _id: '620be3bea9261146e0f043a9', name: 'Sohrab Bhai',runs: 0,ballsPlayed:3 },
+        { _id: '620be3bea9261146e0f043b5', name: 'Tipu Bhai', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043b4', name: 'Tutu Bhai', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043b6', name: 'Wajid Bhai', runs: 2,ballsPlayed:1 }
+      ]
+
+
+
+      data.forEach(async (d) => {
+        if(d.ballsPlayed > 0){
+            var p=await Player.findById(d._id);
+            p.runs =p.runs+d.runs;
+            p.ballsPlayed=p.ballsPlayed+d.ballsPlayed;
+            p.innings=p.innings+1;
+            p.strikeRate=Math.floor((p.runs/p.ballsPlayed)*100);
+            await p.save();
+        }
+      });
+
+      res.send("Successfully");
+
+});
+
+
+app.get("/battingRestore",async (req,res) => {
+    var p=await Player.updateMany({},{$set:{runs: 0,ballsPlayed:0,innings:0,strikeRate:0}});
+    res.send("success");
+})
+
+app.get("/bowlingRestore",async (req,res) => {
+    var p=await Player.updateMany({},{$set:{runsGiven: 0,ballsDelivered:0,wickets:0,ballInnings:0,overs:'',economy:0}});
+    res.send("success");
+})
+
+app.get("/updateBowlingStats",async (req,res) => {
+
+    var data=[
+        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai',runsGiven: 9,ballsDelivered:6,wickets:1},
+        { _id: '620be3bea9261146e0f043a5', name: 'Buni',runsGiven: 30,ballsDelivered:18,wickets:1 },
+        { _id: '620be3bea9261146e0f043a7', name: 'Chotu',runsGiven: 0,ballsDelivered:0,wickets:0},
+        { _id: '620be3bea9261146e0f043b2', name: 'Faiz',runsGiven: 25,ballsDelivered:12,wickets:1 },
+        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runsGiven: 29,ballsDelivered:18,wickets:2},
+        { _id: '620be3bea9261146e0f043b3', name: 'Raj Bhai',runsGiven: 8,ballsDelivered:12,wickets:3 },
+        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai',runsGiven: 17,ballsDelivered:18,wickets:3},
+        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai',runsGiven: 0,ballsDelivered:0,wickets:0  },
+        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runsGiven: 31,ballsDelivered:18,wickets:1 },
+        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runsGiven: 18,ballsDelivered:6,wickets:0},
+        { _id: '620be3bea9261146e0f043b5', name: 'Tipu Bhai',runsGiven: 0,ballsDelivered:0,wickets:0 },
+        { _id: '620be3bea9261146e0f043b4', name: 'Tutu Bhai',runsGiven: 0,ballsDelivered:0,wickets:0 }
+      ]
+
+      data.forEach(async (d) => {
+        if(d.ballsDelivered > 0){
+      var p=await Player.findOne({_id:d._id});
+      p.runsGiven=p.runsGiven+d.runsGiven;
+      p.ballsDelivered=p.ballsDelivered+d.ballsDelivered;
+      p.ballInnings+=1;
+      p.wickets=p.wickets+d.wickets;
+      p.overs=`${Math.floor(p.ballsDelivered/6)}.${(p.ballsDelivered%6)}`;
+      p.economy=(p.runsGiven/parseFloat(p.overs)).toFixed(2);
+      await p.save();
+        }
+    });
+
+    res.send("Successfully");
+})
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
