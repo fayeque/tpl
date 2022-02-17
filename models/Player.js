@@ -18,6 +18,7 @@ var playerSchema=new mongoose.Schema({
     runsGiven:{type:Number,default:0},
     totalMatches:{type:Number,default:0},
     overs:{type:String,default:''},
+    battingAverage:{type:Number,default:''},
     date: {
         type: Date,
         default: Date.now

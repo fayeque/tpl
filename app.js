@@ -210,6 +210,7 @@ app.get("/updateBattingStats",async (req,res) => {
             p.runs =p.runs+d.runs;
             p.ballsPlayed=p.ballsPlayed+d.ballsPlayed;
             p.innings=p.innings+1;
+            p.battingAverage = (p.runs / p.innings).toFixed(2);
             p.strikeRate=Math.floor((p.runs/p.ballsPlayed)*100);
             await p.save();
         }
@@ -218,6 +219,55 @@ app.get("/updateBattingStats",async (req,res) => {
       res.send("Successfully");
 
 });
+
+// app.get("/initbattingavg",async (req,res) => {
+
+//     // var p=await Player.updateMany({},{$set:{battingAverage:{$divide:['runs','innings']}}});
+//     // res.send(p);
+
+//     var data=[
+//         { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai', runs: 13,ballsPlayed:8 },
+//         { _id: '620be3bea9261146e0f043a6', name: 'Aquib',runs: 10,ballsPlayed:12 },
+//         { _id: '620be3bea9261146e0f043ab', name: 'Atif',runs:0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043aa', name: 'Azad Bhai',runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043b7', name: 'Bikki', runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043a5', name: 'Buni', runs: 1,ballsPlayed:2 },
+//         { _id: '620be3bea9261146e0f043a7', name: 'Chotu',runs: 0,ballsPlayed:0 },
+//         { _id: '620c4ad74b18020bbe14c392', name: 'Dablu Bhai',runs: 7,ballsPlayed:6},
+//         { _id: '620be3bea9261146e0f043af', name: 'Danish', runs: 41,ballsPlayed:20 },
+//         { _id: '620be3bea9261146e0f043ad', name: 'Danish(Makkhi)', runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043b2', name: 'Faiz', runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043ac', name: 'Irfan', runs: 1,ballsPlayed:6 },
+//         { _id: '620be3bea9261146e0f043b1', name: 'Paale', runs: 0,ballsPlayed:0 },
+//         { _id: '620c52954b18020bbe14c394', name: 'Raj Bhagna', runs: 45,ballsPlayed:13 },
+//         { _id: '620be3bea9261146e0f043b3', name: 'Raj Bhai', runs: 11,ballsPlayed:10 },
+//         { _id: '620c527d4b18020bbe14c393', name: 'Rajji Bhai', runs: 11,ballsPlayed:5 },
+//         { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai', runs: 8,ballsPlayed:9 },
+//         { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai', runs: 0,ballsPlayed:1 },
+//         { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runs: 16,ballsPlayed:16 },
+//         { _id: '620c52be4b18020bbe14c396', name: 'Shakil Bhai',runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runs: 0,ballsPlayed:0 },
+//         { _id: '620be3bea9261146e0f043a9', name: 'Sohrab Bhai',runs: 9,ballsPlayed:7 },
+//         { _id: '620be3bea9261146e0f043b5', name: 'Tipu Bhai', runs: 6,ballsPlayed:5 },
+//         { _id: '620be3bea9261146e0f043b4', name: 'Tutu Bhai', runs: 4,ballsPlayed:8 },
+//         { _id: '620be3bea9261146e0f043b6', name: 'Wajid Bhai', runs: 0,ballsPlayed:0 },
+//         { _id: '620c52a54b18020bbe14c395', name: 'Zeeshan Bhai', runs: 2,ballsPlayed:7 }
+//       ]
+
+//       data.forEach(async (d) => {
+//             var p=await Player.findById(d._id);
+//             if(p.innings > 0){
+//                 p.battingAverage = (p.runs/p.innings).toFixed(2);
+//             }else{
+//                 p.battingAverage = 0;
+//             }
+//             await p.save();
+//       });
+
+//       res.send("Successfully");
+
+// })
 
 
 app.get("/battingRestore",async (req,res) => {
@@ -277,7 +327,10 @@ app.get("/bowlingStats",async (req,res) => {
     res.render("bowlingStats",{data:data});
 });
 
-
+app.get("/battingAverage",async (req,res) => {
+    var data=await Player.find({}).sort({battingAverage:-1});
+    res.render("battingAverage",{data:data});
+});
 
 
 app.listen(PORT,() => console.log(`Server started at ${PORT}`));
