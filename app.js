@@ -35,13 +35,13 @@ app.use(function(req, res, next){
 
 
  app.get("/",async (req,res) => {
-    var players=await Player.find({}).sort({name:1});
+    var players=await Player.find({}).sort({matches:-1,name:1});
     res.render('publicLanding',{players:players});
  })
 
 
 app.get("/verysecureone",async (req,res) => {
-        var players=await Player.find({}).sort({name:1});
+        var players=await Player.find({}).sort({matches:-1,name:1});
         res.render('landing',{players:players});
 });
 
