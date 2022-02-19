@@ -60,8 +60,8 @@
                     <h3><span> <%= p.name %> </span></h3>
                     <h5>Man of the matches : <%= p.Man_of_the_match %></h5>
                     <h5 style="margin-top:10px;">Total Matches Played : <%= p.history.won + p.history.lost %></h5>
-                    <h5>Total matches won : <%= p.won %></h5>
-                    <h5>Total matches lost : <%= p.lost %></h5>
+                    <h5>Total matches won : <%= p.history.won %></h5>
+                    <h5>Total matches lost : <%= p.history.lost %></h5>
                     <h4 style="margin-top:20px;">Batting stats</h4>
                     <h5>Innings : <%=p.innings %>  ||| Run scored : <%=p.runs %></h5>
                     <h5>Balls Played : <%=p.ballsPlayed %> ||| Strike rate : <%=p.strikeRate %></h5>

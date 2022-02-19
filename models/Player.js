@@ -19,6 +19,7 @@ var playerSchema=new mongoose.Schema({
     totalMatches:{type:Number,default:0},
     overs:{type:String,default:''},
     battingAverage:{type:Number,default:''},
+    amountPaid:{type:Number,default:0},
     date: {
         type: Date,
         default: Date.now

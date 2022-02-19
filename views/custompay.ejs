@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <title>Account details</title>
+        <meta charset="utf-8">
+        <meta  name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="manifest" href="http://localhost:5000/manifest.json" />
+        <!-- <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" /> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <style>
+            *{
+                line-height: 0.5rem;
+            }
+          .avatar {
+            margin-top:20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+          }
+        </style>
+        </head>
+    <body>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div style="display: flex;">
+              <div  class="navbar-header">
+                <a style="color:white;" class="navbar-brand" href="/">Tarbanglow Chilly Paratha Cup</a>
+              </div>
+            </div>
+            </div>
+          </nav>
+          <div class="container">
+            <form autocomplete="off" action="/handleCustomPay/<%= id %>" method="POST" class="form-inline">
+              <div class="form-group">
+                <input class="form-control" type="number" name="amount" placeholder="Enter amount paid">
+                <input style="margin-top:20px;margin-left:40%;" type="submit" value="Submit" class="btn btn-primary btn-sm">
+              </div>
+          </form>
+        </div>
+    </body>
+</html>
