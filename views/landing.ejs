@@ -25,33 +25,25 @@
         </head>
     <body>
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div style="display: flex;">
-              <div  class="navbar-header">
-                <a style="color:white;" class="navbar-brand" href="/verysecureone">Tarbanglow Cricket</a>
-                <h5 style="color:white;margin-left: 15px;">Total Due = Rs.<%= tcm %></h5>
-                <h5 style="color:white;margin-left: 10px;">Total Collection = Rs.<%= acm %></h5>
-              </div>
-              <div>
-                <!-- <button onClick="handleEvent()" style="margin-left:60px;" class="btn btn-success navbar-btn"><a href="/addDealer" style="color:white;"><span class="glyphicon glyphicon-plus"></span> Add dealer</a></button> -->
-                <button style="margin-left:60px;" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-plus"></span><a href="/addDealer">Add Players</a> </button>
-              </div>
-            </div>
-            </div>
-          </nav>
-          <div class="container">
-            <% if(error && error.length>0){ %>
-            <div class="alert alert-danger" role="alert">
-            <%= error %>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div style="display: flex;">
+          <div  class="navbar-header">
+            <a style="color:white;" class="navbar-brand" href="/">Tarbanglow Chilly Paratha Cup</a>
+            
+            <h5 style="color:white;margin-left: 15px;">Total Due = Rs.<%= tcm %></h5>
+            <h5 style="color:white;margin-left: 15px;">Total Collection = Rs.<%= acm %></h5>
+          
+           <div class="add_data" style="display: flex";>
+            <h5 style="color:white;margin-left: 15px;">Total players = <%= totalPlayers %></h5>
+            <h5 style="color:white;margin-left: 15px;">Players attend = <%= playersAttend %></h5>
+           </div>
+           <button style="margin-left:60px;" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-plus"></span><a href="/addDealer">Add Players</a> </button>
+          </div>
         </div>
-            <% } %>
-            <% if(success && success.length>0){ %>
-        <div class="alert alert-success" role="alert">
-            <%= success %>
         </div>
-            <% } %>
-        </div>
+      </nav>
+
           <div class="container">
             <form autocomplete="off" action="/search" method="GET" class="form-inline">
               <div class="form-group">
@@ -74,8 +66,10 @@
                     <h5  id="<%= d._id %>" onclick="handleMoMClick(event)" class="glyphicon glyphicon-plus mb-2" >Manofthematches:<%=d.Man_of_the_match %></h5>
                     <h5>Amount Due: Rs.<%= d.lost * 10 %></h5>
                     <h5  class="card-text <%= d._id %>" >Matches Played: <%= d.matches %></h5>
-                    <button class="btn btn-primary btn-sm"><a href="/handlePay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Paid</a></button>
-                    <button class="btn btn-primary btn-sm"><a href="/handleCustomPay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Custom Paid</a></button>
+                    <button class="btn btn-primary btn-xs"><a href="/handlePay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Paid</a></button>
+                    <button class="btn btn-primary btn-xs"><a href="/handleCustomPay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Custom Paid</a></button>
+                    <button class="btn btn-primary btn-xs"><a href="/willNotAttend/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Not Attend</a></button>
+                    <button class="btn btn-primary btn-xs"><a href="/willAttend/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Will Attend</a></button>
                   </div>
                 </div>
           <% }) %>
