@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="/dist/output.css" rel="stylesheet">
+    <!-- <link rel="manifest" href="https://htobacco.herokuapp.com/manifest.json" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link href="/dist/output.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div style="display: flex;">
+      <div  class="navbar-header">
+        <a style="color:white;" class="navbar-brand" href="/">Tarbanglow Chilly Paratha Cup</a>
+      </div>
+    </div>
+    </div>
+  </nav>
+
+<div className="flex flex-col">
+    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+          <table style="width:100%;margin-left:5px;" className="divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr >
+                <th
+                
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 mx-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Overs
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 mx-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Runs Given
+                </th>
+                <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Economy
+              </th>
+              <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Wickets
+            </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+                <% data.forEach((person,i) => { %>
+                <tr style="width: 15px;margin-left: auto;margin-right: auto;height:30px;" >
+                  <td className="px-3 py-4 whitespace-nowrap">
+                    <div className="flex items-center">
+                      <div className="ml-4">
+                        <div className="text-md font-medium text-gray-600"><%= i+1 %>. <%= person.name %></div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900"><%= person.overs %></div>
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900"><%= person.runsGiven %></div>
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900"><%= person.economy %></div>
+                  </td>
+                  <td className="px-3 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-900"><%= person.wickets %></div>
+                  </td>
+  
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
