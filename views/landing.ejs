@@ -63,9 +63,10 @@
                     <h4 class="card-title" ><span style="margin-right:50px" class="glyphicon"> <img src="<%= d.avatar %>" alt="Avatar" class="avatar"> <%= d.name %> </span>  </h4>
                     <h5  id="<%= d._id %>" onclick="handleWinClick(event)" class="glyphicon glyphicon-plus card-subtitle mb-2 text-muted" >Win:<%=d.won %>  </h5>
                     <h5  id="<%= d._id %>" onclick="handleLostClick(event)" class="glyphicon glyphicon-plus card-subtitle mb-2 " style="margin-left: 15px;" >Lost:<%=d.lost %>  </h5>
+                    <h5  id="<%= d._id %>" onclick="handleAbsentClick(event)" class="glyphicon glyphicon-plus card-subtitle mb-2 " style="margin-left: 15px;" >Absent:<%=d.absent %>  </h5>
                     <br>
                     <h5  id="<%= d._id %>" onclick="handleMoMClick(event)" class="glyphicon glyphicon-plus mb-2" >Manofthematches:<%=d.Man_of_the_match %></h5>
-                    <h5>Amount Due: Rs.<%= d.lost * 10 %></h5>
+                    <h5>Amount Due: Rs.<%= d.lost * 15 + d.won*5 + d.absent*10 %></h5>
                     <h5  class="card-text <%= d._id %>" >Matches Played: <%= d.matches %></h5>
                     <button class="btn btn-primary btn-xs"><a href="/handlePay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Paid</a></button>
                     <button class="btn btn-primary btn-xs"><a href="/handleCustomPay/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">Custom Paid</a></button>
@@ -97,6 +98,16 @@
             const pid=e.target.id;
             var res=await axios.get(`/handleLost/${pid}`);
             e.target.innerText = `Lost:${res.data.lost}`;
+            d.innerText = `Matches Played:${res.data.matches}`;
+          }
+
+          async function handleAbsentClick(e){
+            console.log(e.target.id);
+            var d=document.getElementsByClassName(e.target.id)[0];
+            console.log(d);
+            const pid=e.target.id;
+            var res=await axios.get(`/handleAbsent/${pid}`);
+            e.target.innerText = `Absent:${res.data.absent}`;
             d.innerText = `Matches Played:${res.data.matches}`;
           }
 

@@ -5,7 +5,7 @@ var playerSchema=new mongoose.Schema({
     lost:{type:Number,default:0},
     matches:{type:Number,default:0},
     Man_of_the_match:{type:Number,default:0},
-    history:{won:{type:Number,default:0},lost:{type:Number,default:0},matches:{type:Number,default:0}},
+    history:{won:{type:Number,default:0},lost:{type:Number,default:0},absent:{type:Number,default:0},matches:{type:Number,default:0}},
     avatar:{type:String,default:"https://cdn1.iconfinder.com/data/icons/sport-avatar-6/64/07-cricket_player-cricket-sports-avatar-people-512.png"},
     runs:{type:Number,default:0},
     ballsPlayed:{type:Number,default:0},
@@ -21,6 +21,7 @@ var playerSchema=new mongoose.Schema({
     battingAverage:{type:Number,default:''},
     amountPaid:{type:Number,default:0},
     willAttend:{type:Boolean,default:true},
+    absent:{type:Number,default:0},
     date: {
         type: Date,
         default: Date.now
