@@ -288,37 +288,37 @@ app.get("/te",async (req,res) => {
 
 app.get("/updateBattingStats",async (req,res) => {
     var data=[
-        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai', runs:29,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai', runs:0,ballsPlayed:2 },
         { _id: '621073ce0222251b60374fb3', name: 'Alam Bhai', runs: 8,ballsPlayed:0 },
         { _id: '620f1c8a74916272450ed3f0', name: 'Ali', runs: 0,ballsPlayed:0 },
-        { _id: '620be3bea9261146e0f043a6', name: 'Aquib',runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a6', name: 'Aquib',runs: 1,ballsPlayed:1 },
         { _id: '62105b3f0222251b60374fb2', name: 'Asif masjidgali',runs: 0,ballsPlayed:0 },
         { _id: '620be3bea9261146e0f043ab', name: 'Atif',runs:0,ballsPlayed:0 },
         { _id: '620be3bea9261146e0f043aa', name: 'Azad Bhai',runs: 0,ballsPlayed:0 },
-        { _id: '620be3bea9261146e0f043b7', name: 'Bikki', runs: 0,ballsPlayed:5 },
-        { _id: '620be3bea9261146e0f043a5', name: 'Buni', runs: 0,ballsPlayed:2},
+        { _id: '620be3bea9261146e0f043b7', name: 'Bikki', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a5', name: 'Buni', runs: 0,ballsPlayed:0},
         { _id: '620be3bea9261146e0f043a7', name: 'Chotu',runs: 0,ballsPlayed:0 },
-        { _id: '620c4ad74b18020bbe14c392', name: 'Dablu Bhai',runs: 31,ballsPlayed:10},
-        { _id: '620be3bea9261146e0f043af', name: 'Danish', runs: 32,ballsPlayed:18 },
+        { _id: '620c4ad74b18020bbe14c392', name: 'Dablu Bhai',runs: 29,ballsPlayed:19},
+        { _id: '620be3bea9261146e0f043af', name: 'Danish', runs: 0,ballsPlayed:2 },
         { _id: '620be3bea9261146e0f043ad', name: 'Danish(Makkhi)', runs: 0,ballsPlayed:0 },
         { _id: '620be3bea9261146e0f043b2', name: 'Faiz', runs: 0,ballsPlayed:0 },
         { _id: '6211c564aaf67c752e3f0e82', name: 'Farhan', runs: 0,ballsPlayed:0 },
-        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runs: 12,ballsPlayed:0 },
-        { _id: '620be3bea9261146e0f043ac', name: 'Irfan', runs: 2,ballsPlayed:7 },
+        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runs: 3,ballsPlayed:8 },
+        { _id: '620be3bea9261146e0f043ac', name: 'Irfan', runs: 7,ballsPlayed:3 },
         { _id: '6211c550aaf67c752e3f0e81', name: 'Majhi bhai', runs: 0,ballsPlayed:0 },
-        { _id: '6220bea6b83bc74780d9ef04', name: 'Munna Bhai', runs: 0,ballsPlayed:1 },
-        { _id: '620be3bea9261146e0f043b1', name: 'Paale', runs: 19,ballsPlayed:10 },
+        { _id: '6220bea6b83bc74780d9ef04', name: 'Munna Bhai', runs: 21,ballsPlayed:15 },
+        { _id: '620be3bea9261146e0f043b1', name: 'Paale', runs: 29,ballsPlayed:14 },
         { _id: '620c527d4b18020bbe14c393', name: 'Rajji Bhai', runs: 0,ballsPlayed:0 },
         { _id: '62243a184865ab261880e71c', name: 'Ronit', runs: 0,ballsPlayed:0  },
-        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai', runs: 0,ballsPlayed:5 },
-        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai', runs: 26,ballsPlayed:24 },
-        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runs: 9,ballsPlayed:0 },
-        { _id: '620f0af674916272450ed3ef', name: 'Samir',runs: 2,ballsPlayed:3},
-        { _id: '6220be8ab83bc74780d9ef03', name: 'Samir Bhai',runs: 18,ballsPlayed:0  },
+        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai', runs: 0,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai', runs: 25,ballsPlayed:19 },
+        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runs: 10,ballsPlayed:7 },
+        { _id: '620f0af674916272450ed3ef', name: 'Samir',runs: 11,ballsPlayed:12},
+        { _id: '6220be8ab83bc74780d9ef03', name: 'Samir Bhai',runs: 0,ballsPlayed:3  },
         { _id: '620c52be4b18020bbe14c396', name: 'Shakil Bhai',runs: 0,ballsPlayed:0 },
-        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runs: 13,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runs: 6,ballsPlayed:6 },
         { _id: '6222db5ca4017a3f0c34e5b6', name: 'Shivam',runs: 0,ballsPlayed:0  },
-        { _id: '620be3bea9261146e0f043a9', name: 'Sohrab Bhai',runs: 26,ballsPlayed:0 },
+        { _id: '620be3bea9261146e0f043a9', name: 'Sohrab Bhai',runs: 49,ballsPlayed:32 },
         { _id: '6221963d3db48d0ec800e57b', name: 'Tannu',runs: 1,ballsPlayed:0 },
         { _id: '6222d0ba0d643a0fb3e3f0eb', name: 'Tipu bhai Toto',runs: 0,ballsPlayed:0 },
         { _id: '620be3bea9261146e0f043b4', name: 'Tutu Bhai', runs: 0,ballsPlayed:2 },
@@ -431,19 +431,19 @@ app.get("/bowlingRestore",async (req,res) => {
 app.get("/updateBowlingStats",async (req,res) => {
 
     var data=[
-        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai',runsGiven: 23,ballsDelivered:14,wickets:3},
-        { _id: '620be3bea9261146e0f043a5', name: 'Buni',runsGiven: 7,ballsDelivered:1,wickets:0 },
+        { _id: '620be3bea9261146e0f043b8', name: 'Akil Bhai',runsGiven: 25,ballsDelivered:12,wickets:0},
+        { _id: '620be3bea9261146e0f043a5', name: 'Buni',runsGiven: 19,ballsDelivered:18,wickets:0 },
         { _id: '620be3bea9261146e0f043b2', name: 'Faiz',runsGiven: 0,ballsDelivered:0,wickets:0 },
         { _id: '6211c564aaf67c752e3f0e82', name: 'Farhan',runsGiven: 0,ballsDelivered:0,wickets:0 },
-        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runsGiven: 23,ballsDelivered:24,wickets:4},
+        { _id: '620be3bea9261146e0f043a4', name: 'Fayeque',runsGiven: 21,ballsDelivered:18,wickets:1},
         { _id: '6211c550aaf67c752e3f0e81', name: 'Majhi bhai',runsGiven: 0,ballsDelivered:0,wickets:0 },
-        { _id: '6220bea6b83bc74780d9ef04', name: 'Munna Bhai',runsGiven: 16,ballsDelivered:0,wickets:0},
-        { _id: '620c527d4b18020bbe14c393', name: 'Rajji Bhai',runsGiven: 0,ballsDelivered:0,wickets:0 },
-        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai',runsGiven: 22,ballsDelivered:6,wickets:0},
-        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai',runsGiven: 27,ballsDelivered:12,wickets:0 },
-        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runsGiven: 15,ballsDelivered:18,wickets:1 },
-        { _id: '6220be8ab83bc74780d9ef03', name: 'Samir Bhai',runsGiven: 10,ballsDelivered:12,wickets:1 }, 
-        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runsGiven: 20,ballsDelivered:0,wickets:0},
+        { _id: '6220bea6b83bc74780d9ef04', name: 'Munna Bhai',runsGiven: 22,ballsDelivered:4,wickets:0},
+        { _id: '620c527d4b18020bbe14c393', name: 'Rajji Bhai',runsGiven: 21,ballsDelivered:12,wickets:2 },
+        { _id: '620be3bea9261146e0f043b0', name: 'Sabbir Bhai',runsGiven: 46,ballsDelivered:18,wickets:2},
+        { _id: '620be3bea9261146e0f043ae', name: 'Saddam Bhai',runsGiven: 15,ballsDelivered:24,wickets:2 },
+        { _id: '620be3bea9261146e0f043a3', name: 'Saif Ali',runsGiven: 26,ballsDelivered:18,wickets:1 },
+        { _id: '6220be8ab83bc74780d9ef03', name: 'Samir Bhai',runsGiven: 20,ballsDelivered:12,wickets:2 }, 
+        { _id: '620be3bea9261146e0f043a8', name: 'Sheru Bhai',runsGiven: 1,ballsDelivered:2,wickets:0},
         { _id: '620be3bea9261146e0f043a9', name: 'Sohrab Bhai',runsGiven: 17,ballsDelivered:0,wickets:0},
         { _id: '620be3bea9261146e0f043b4', name: 'Tutu Bhai',runsGiven: 0,ballsDelivered:0,wickets:0 },
         { _id: '620be3bea9261146e0f043b6', name: 'Wajid Bhai',runsGiven: 0,ballsDelivered:0,wickets:0  }
@@ -480,8 +480,13 @@ app.get("/battingStats",async (req,res) => {
 });
 
 app.get("/bowlingStats",async (req,res) => {
-    var data=await Player.find({economy : {$gt : 0},'history.matches':{$gt:6}}).sort({economy:1});
-    res.render("bowlingStats",{data:data});
+    var data=await Player.find({}).sort({economy:1});
+    var fdata=data.filter((d) => {
+        if(d.ballsDelivered >= 18){
+            return d;
+        }
+    })
+    res.render("bowlingStats",{data:fdata});
 });
 
 app.get("/battingAverage",async (req,res) => {
