@@ -69,8 +69,8 @@
                   </div>
                   <div class="details">
                     <h4><span> <%= d.name %> </span>  </h4>
-                    <h5  id="<%= d._id %>"  >Win:<%=d.won %>  |||  Lost:<%=d.lost %> </h5>
-                    <h5>Amount Due: Rs.<%= d.lost * 10 %></h5>
+                    <h5  id="<%= d._id %>"  >Win:<%=d.won %>|| Lost:<%=d.lost %> || Absent:<%=d.absent %></h5>
+                    <h5>Amount Due: Rs.<%= (d.lost * 15 + d.won*5 + d.absent*10)  %></h5>
                     <h5  class="<%= d._id %>" >Matches Played: <%= d.matches %></h5>
                     <button class="btn btn-primary btn-sm"><a href="/viewStats/<%= d._id %>" data-value="<%= d._id %>"  style="color:white;">View Stats</a></button>
                   </div>
